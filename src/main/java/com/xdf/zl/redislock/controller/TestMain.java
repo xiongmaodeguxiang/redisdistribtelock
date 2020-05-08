@@ -26,14 +26,17 @@ public class TestMain {
 //        valList.add("sss_value");
 //        valList.add("1000");
 //        long eval = (long) jedis.eval(script, keyList, valList);
-        String script = RedisLockUtil2.getScript("/luaScript/unlock.lua");
+//        String script = RedisLockUtil2.getScript("/luaScript/unlock.lua");
         List<String> keyList = new ArrayList<>();
         keyList.add("sss1");
         keyList.add("sss1_count");
-        List<String> valList = new ArrayList<>();
-        valList.add("sss_value");
-        long eval = (long) jedis.eval(script, keyList, valList);
-        System.out.println(eval);
-
+        keyList.add("sss1_count1");
+        keyList.add("sss1_count2");
+        keyList.add("sss1_count3");
+//        List<String> valList = new ArrayList<>();
+//        valList.add("sss_value");
+//        long eval = (long) jedis.eval(script, keyList, valList);
+//        System.out.println(eval);
+        keyList.forEach(item -> System.out.println(item));
     }
 }
