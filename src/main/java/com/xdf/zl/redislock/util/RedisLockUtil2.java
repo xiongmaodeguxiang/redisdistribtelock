@@ -1,15 +1,14 @@
 package com.xdf.zl.redislock.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,7 +22,6 @@ public class RedisLockUtil2 {
 
     @Autowired
     RedisClient redisClient;
-
     /**
      * redis分布式加锁
      * @param key

@@ -2,7 +2,11 @@ package com.xdf.zl.redislock.controller;
 
 import com.xdf.zl.redislock.service.IRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.annotation.Retention;
@@ -19,6 +23,11 @@ public class RedisLockController {
     @Autowired
     IRedisService redisService;
 
+    @Autowired
+    RedisTemplate redisTemplate;
+
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
     @GetMapping("/incr")
     public Object incr() throws InterruptedException {
         long start =System.currentTimeMillis();
@@ -43,5 +52,11 @@ public class RedisLockController {
     public Object get() throws InterruptedException {
         String num_1 = redisService.getString("num_1");
         return num_1;
+    }
+    @GetMapping("/get/{key}/{val}")
+    public Object setval(@PathVariable("key") String key,@PathVariable("val")String val) throws InterruptedException {
+//        redisTemplate.opsForValue().set(key,val);
+        stringRedisTemplate.opsForValue().set(key,val);
+        return "设置成功："+key+"---"+val;
     }
 }
